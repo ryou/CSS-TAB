@@ -1,1 +1,10 @@
+.tab
+  .tab__tabs
+    - (1..4).each do |index|
+      .tab__single
+        .tab__single-inner class=("tab__single-inner--active" if index == 1)
+          |タブ#{index}
+  .tab__content
+
+
 
