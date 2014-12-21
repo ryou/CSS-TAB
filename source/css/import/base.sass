@@ -1,0 +1,66 @@
+// base.scss
+// どのサイトでも使うようなスタイル指定を纏めたスタイルシート
+
+// 外部import
+@import compass
+@import compass/reset/
+
+// mixin
+=clearfix
+  content: ""
+  clear: both
+  display: block
+
+// remをIE8対応するためのmixin
+=fz-rem($size)
+  font-size: $size * 10px
+  font-size: #{$size}rem
+
+=lh-rem($size)
+  line-height: $size * 10px
+  line-height: #{$size}rem
+
+// IE8対応のグラデーション
+=ie8-gradient($startColor, $endColor)
+  +background(linear-gradient($startColor, $endColor))
+  +filter-gradient($startColor, $endColor)
+
+=ie8-border-radius($rad1, $rad2: null, $rad3: null, $rad4: null)
+  border-radius: $rad1 $rad2 $rad3 $rad4
+  behavior: url("/lib/css3pie/htc/PIE.htc")
+
+// BEM
+=e($inElement)
+  @at-root
+    #{&}__#{$inElement}
+      @content
+
+=m($inModifier)
+  @at-root
+    #{&}--#{$inModifier}
+      @content
+
+// 共通スタイル
+*
+  box-sizing: border-box
+
+html, body
+  height: 100%
+  width: 100%
+
+html
+  font-size: 62.5%
+  line-height: 1.5
+
+img
+  vertical-align: bottom
+
+body
+  font-family: Arial, "Hiragino Kaku Gothic ProN", "游ゴシック", YuGothic, Meiryo, sans-serif
+  +fz-rem(1.4)
+  -webkit-text-size-adjust: 100%
+  // iOSでテキストサイズを勝手に拡大されないようにする
+
+a
+  color: inherit
+  text-decoration: none

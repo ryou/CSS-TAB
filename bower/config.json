@@ -1,0 +1,12 @@
+{
+  // 記述例
+  // "jquery": {
+  //   "js": "dist/*"
+  // }
+  "jquery": {
+    "js": "dist/*"
+  },
+  "css3pie": {
+    "htc": "*.htc"
+  }
+}

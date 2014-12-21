@@ -1,0 +1,79 @@
+
+- if wp? == true
+  - single_data = { date: '<?php the_time("j月 m, Y"); ?>', author: '<?php the_author(); ?>', title: '<?php the_title(); ?>', link: '<?php the_permalink(); ?>', category: '<?php the_category( ' ' ); ?>' }
+- else
+  - single_data = { date: '3月 5, 2014', author: 'ryou', title: 'Middlemanによる静的サイト開発環境に関して', category: '<a href="">test</a> <a href="">未分類</a>', link: 'single.html' }
+
+- if wp? == true
+  |
+    <?php
+      $args = array(
+        'post_type' => 'post',
+        'paged' => $paged
+      );
+      query_posts($args);
+
+      if ( have_posts() ) :
+        while( have_posts() ) :
+          the_post();
+    ?>
+.common-area
+  .article
+    .common-area
+      h1.article__title = single_data[:title]
+      ul.article__infos
+        li.article__info = single_data[:date]
+        li.article__info = single_data[:category]
+        li.article__info = single_data[:author]
+      p.article__thumb
+        - if wp? == true
+          |<?php if ( has_post_thumbnail() ) : ?>
+          <?php the_thumbnail(); ?>
+          |<?php endif; ?>
+        - else
+          img src="img/test/test.jpg"
+    .article__content
+      - if wp? == true
+        |<?php the_excerpt(); ?>
+      - else
+        p 本文テスト
+    .article__detail
+      a href="#{single_data[:link]}" 続きを読む
+- if wp? == true
+  |
+    <?php
+        endwhile;
+      else :
+        echo 'err';
+      endif;
+    ?>
+.pager
+  - if wp? == true
+    |
+      <?php
+        global $wp_rewrite;
+        $paginate_base = get_pagenum_link(1);
+        if ( strpos($paginate_base, '?') || ! $wp_rewrite->using_permalinks() ) {
+          $paginate_format = '';
+          $paginate_base = add_query_arg('paged','%#%');
+        }
+        else{
+          $paginate_format = (substr($paginate_base,-1,1) == '/' ? '' : '/') .
+          user_trailingslashit('page/%#%/','paged');;
+          $paginate_base .= '%_%';
+        }
+        echo paginate_links(array(
+          'base' => $paginate_base,
+          'format' => $paginate_format,
+          'total' => $wp_query->max_num_pages,
+          'mid_size' => 5,
+          'current' => ($paged ? $paged : 1),
+          'prev_text' => 'PREV',
+          'next_text' => 'NEXT',
+        ));
+      ?>
+  - else
+    a.prev.page-numbers href="" PREV
+    a.page-numbers href="" 1
+    span.page-numbers.current 2
+    a.next.page-numbers href="" NEXT

@@ -1,0 +1,97 @@
+@import import/base/
+
+a
+  &:hover
+    +opacity(0.5)
+
+.container
+  width: 960px
+  margin: 0 auto
+
+.row
+  &:after
+    +clearfix
+
+.common-area-s
+  margin-bottom: 10px
+
+.common-area
+  margin-bottom: 20px
+
+.header
+  padding: 10px 0
+  margin-bottom: 20px
+  background-color: black
+  color: white
+  .logo
+    float: left
+    +fz-rem(2.0)
+    font-weight: bold
+  .menu-sample_nav-container
+    float: right
+    .menu
+      &:after
+        +clearfix
+      .menu-item
+        float: left
+        margin-left: 10px
+
+.content
+  margin-bottom: 20px
+  .content__main
+    float: left
+    width: 700px
+    margin-right: 20px
+  .content__side
+    float: left
+    width: 220px
+  .article
+    padding-bottom: 20px
+    border-bottom: 1px dotted gray
+    +e(title)
+      +fz-rem(2.2)
+      font-weight: bold
+    +e(infos)
+      &:after
+        +clearfix
+    +e(info)
+      float: left
+      margin-right: 10px
+    +e(thumb)
+      img
+        max-width: 700px
+        height: auto
+    +e(detail)
+      a
+        display: inline-block
+        background-color: black
+        color: white
+        padding: 5px 10px
+  .widget
+    .widgettitle
+      +fz-rem(1.6)
+      font-weight: bold
+      border-bottom: 2px solid black
+    ul
+      margin-bottom: 20px
+      li
+        padding: 5px 0
+        border-bottom: 1px dotted gray
+  .pager
+    .page-numbers
+      margin-right: 5px
+      display: inline-block
+      padding: 5px 10px
+      border: 1px solid black
+    .page-numbers:hover, .current
+      +opacity(1.0)
+      color: white
+      background-color: black
+
+.footer
+  padding: 10px 0
+  background-color: black
+  color: white
+  address
+    text-align: center
+    +fz-rem(1.2)

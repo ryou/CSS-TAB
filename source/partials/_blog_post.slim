@@ -1,0 +1,40 @@
+- if wp? == true
+  - single_data = { date: '<?php the_time("Y/m/j"); ?>', author: '<?php the_author(); ?>', title: '<?php the_title(); ?>', category: '<?php the_category(","); ?>' }
+- else
+  - single_data = { date: '2014/10/1', author: 'author', title: '記事タイトル', category: '<a href="">test</a> <a href="">未分類</a>' }
+
+- if wp? == true
+  |
+    <?php
+      if ( have_posts() ) :
+        while ( have_posts() ) :
+          the_post();
+    ?>
+.common-area
+  .article
+    .common-area
+      h1.article__title = single_data[:title]
+      ul.article__infos
+        li.article__info = single_data[:date]
+        li.article__info = single_data[:category]
+        li.article__info = single_data[:author]
+      p.article_thumb
+        - if wp? == true
+          |<?php if ( has_post_thumbnail() ) : ?>
+          <?php the_thumbnail(); ?>
+          |<?php endif; ?>
+        - else
+          img src="img/test/test.jpg"
+    .article__content
+      - if wp? == true
+        |<?php the_content(); ?>
+      - else
+        p 本文テスト
+- if wp? == true
+  |
+    <?php
+        endwhile;
+      else :
+        echo 'err';
+      endif;
+    ?>
